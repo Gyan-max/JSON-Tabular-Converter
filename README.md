@@ -12,10 +12,19 @@ This application solves the common problem of converting complex, nested JSON st
 - **JSON File Import**: Load JSON files with drag-and-drop interface
 - **Intelligent Flattening**: Automatically flatten nested JSON structures
 - **Configurable Options**: Customize separator characters, nesting levels, and data handling
-- **Multiple Export Formats**: Save results as CSV or Excel files
+- **Multiple Export Formats**: Save results as CSV or Excel files with advanced formatting
 - **Real-time Preview**: View original JSON and converted tabular data side-by-side
 
-### Advanced Options
+### Advanced Excel Export Features
+- **Formatted Headers**: Professional styling with bold fonts and colored backgrounds
+- **Auto-sized Columns**: Intelligent column width adjustment based on content
+- **Multiple Sheets**: 
+  - **Data Sheet**: Main converted tabular data
+  - **Summary Sheet**: Conversion statistics and metadata
+  - **Column Details**: Detailed analysis of each column
+- **Advanced Excel Export**: Category-based sheet separation for complex datasets
+
+### Conversion Options
 - **Custom Separators**: Choose how nested keys are joined (default: underscore)
 - **Nesting Level Control**: Limit flattening depth for complex structures
 - **Array Handling**: Convert JSON arrays into separate table rows
@@ -48,6 +57,15 @@ pip install -r requirements.txt
    ```
 4. Run the application:
    ```bash
+   # Method 1: Use the main launcher
+   python main.py
+   
+   # Method 2: Run directly from src
+   python src/json_converter.py
+   
+   # Method 3: Use setup script
+   chmod +x setup.sh && ./setup.sh && ./main.py
+   ```
    python json_converter.py
    ```
 
@@ -66,7 +84,7 @@ pip install -r requirements.txt
    - The original JSON will display in the "Original JSON" tab
 
 3. **Configure Conversion Options**
-   - **Separator**: Character used to join nested keys (e.g., `_`, `.`, `-`)
+   - **Separator**: Character used to join nested keys (e.g., `_`, `.` , `-`)
    - **Max Level**: Maximum nesting depth to flatten (leave empty for all levels)
    - **Handle Arrays**: Convert array elements to separate rows
    - **Remove Nulls**: Automatically remove empty/null columns
@@ -77,8 +95,38 @@ pip install -r requirements.txt
    - Check conversion statistics in the "Summary" tab
 
 5. **Export Results**
-   - Click "Export as CSV" for comma-separated values
-   - Click "Export as Excel" for spreadsheet format
+   - **Export as CSV**: Save as comma-separated values format
+   - **Export as Excel**: Save as formatted Excel spreadsheet with:
+     - Styled headers with bold fonts and colored backgrounds
+     - Auto-adjusted column widths
+     - Multiple sheets (Data, Summary, Column Details)
+   - **Advanced Excel**: Multi-sheet export with category-based data separation
+
+### Command-Line Excel Export
+
+For batch processing or automation, use the command-line utility:
+
+```bash
+python json_to_excel.py input.json output.xlsx [separator] [max_level]
+```
+
+**Examples:**
+```bash
+# Basic export
+python json_to_excel.py data.json output.xlsx
+
+# Custom separator and max levels
+python json_to_excel.py data.json output.xlsx "." 3
+
+# Using different separators
+python json_to_excel.py data.json output.xlsx "-" 
+```
+
+**Command-line Features:**
+- Automatic multi-sheet Excel generation
+- Data summary and column analysis
+- Progress feedback and error reporting
+- Batch processing support
 
 ### Example JSON Structures
 
@@ -229,7 +277,7 @@ This project is created for educational purposes as part of the GUVI Data Scienc
 - [ ] Data type inference and conversion options
 - [ ] Integration with database systems
 - [ ] Command-line interface for automation
-- [ ] Advanced filtering and transformation rules
+- [ ] "" filtering and transformation rules
 - [ ] Support for XML to tabular conversion
 
 ---
@@ -237,4 +285,47 @@ This project is created for educational purposes as part of the GUVI Data Scienc
 **Project**: GUVI Data Science - JSON to Tabular Converter  
 **Created**: August 2025  
 **Technology Stack**: Python, Pandas, Tkinter, JSON Processing
+
 # JSON-Tabular-Converter
+
+## 📊 Excel Export Features
+
+The enhanced Excel export functionality provides professional-grade spreadsheet output with advanced formatting and multiple analysis sheets.
+
+### Standard Excel Export
+- **Formatted Headers**: Bold white text on blue background
+- **Auto-sizing**: Intelligent column width adjustment (max 50 characters)
+- **Data Types**: Proper handling of numbers, dates, and text
+- **Summary Sheet**: Conversion statistics and metadata
+- **Column Details**: Analysis of data types, null counts, and sample values
+
+### Advanced Excel Export
+- **Multi-sheet Organization**: Separate sheets by data categories
+- **Category Detection**: Automatic grouping by type/category columns
+- **Comprehensive Analysis**: Detailed breakdown of data structure
+- **Professional Formatting**: Consistent styling across all sheets
+
+### Excel Export Benefits
+- **Business Ready**: Professional formatting suitable for reports
+- **Data Analysis**: Multiple sheets enable different analytical perspectives  
+- **Preservation**: Maintains data integrity during conversion
+- **Accessibility**: Easy to share and collaborate using Excel
+
+### Command-Line Excel Tool
+The `json_to_excel.py` utility provides:
+- **Batch Processing**: Convert multiple files programmatically
+- **Custom Configuration**: Flexible separator and level options
+- **Progress Tracking**: Real-time conversion status
+- **Error Handling**: Detailed error reporting and recovery
+
+**Usage Examples:**
+```bash
+# Convert with default settings
+python json_to_excel.py employee_data.json report.xlsx
+
+# Use dot separator with 2-level nesting
+python json_to_excel.py nested_data.json analysis.xlsx "." 2
+
+# Process sample data
+python json_to_excel.py sample_data/complex_nested_array.json products.xlsx
+```
