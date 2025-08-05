@@ -9,7 +9,7 @@ import sys
 # Add utils directory to path
 utils_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'utils')
 sys.path.append(utils_dir)
-from json_to_excel import json_to_excel
+from utils.json_to_excel import json_to_excel
 
 def demo_excel_exports():
     """Convert all sample JSON files to Excel for demonstration"""
