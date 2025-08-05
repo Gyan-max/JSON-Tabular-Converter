@@ -37,6 +37,46 @@ This application solves the common problem of converting complex, nested JSON st
 - **Data Summary**: Comprehensive statistics about converted data
 - **Error Handling**: User-friendly error messages and validation
 
+## 📁 Project Structure
+
+```
+json-to-tabular-converter/
+├── 📄 main.py                    # Main launcher script
+├── 📄 setup.sh                   # Automated setup script
+├── 📄 requirements.txt           # Python dependencies
+├── 📄 README.md                  # Project documentation
+├── 📄 PROJECT_STRUCTURE.md       # Detailed structure guide
+├── 📄 .gitignore                 # Git ignore rules
+├── 🗂️ src/
+│   └── 📄 json_converter.py      # Main GUI application
+├── 🗂️ utils/
+│   ├── 📄 json_to_excel.py       # Command-line Excel converter
+│   └── 📄 test_excel_functionality.py  # Test suite
+├── 🗂️ examples/
+│   ├── 📄 demo_excel.py          # Demo script
+│   └── 🗂️ sample_data/          # Sample JSON files for testing
+│       ├── simple_object.json
+│       ├── simple_array.json
+│       ├── nested_object.json
+│       ├── complex_nested_array.json
+│       ├── employee_records.json
+│       ├── deeply_nested_sales.json
+│       ├── mixed_data_types.json
+│       └── README.md
+├── 🗂️ docs/
+│   └── 📄 EXCEL_INTEGRATION_SUMMARY.md  # Technical documentation
+└── 🗂️ venv/                      # Python virtual environment
+```
+
+### 📋 Directory Descriptions
+
+- **`src/`** - Core application source code
+- **`utils/`** - Command-line utilities and testing tools
+- **`examples/`** - Demo scripts and sample data for testing
+- **`docs/`** - Documentation and technical guides
+- **`main.py`** - Primary entry point for the application
+- **`setup.sh`** - One-command project setup script
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -55,19 +95,32 @@ pip install -r requirements.txt
    ```bash
    pip install -r requirements.txt
    ```
-4. Run the application:
-   ```bash
-   # Method 1: Use the main launcher
-   python main.py
-   
-   # Method 2: Run directly from src
-   python src/json_converter.py
-   
-   # Method 3: Use setup script
-   chmod +x setup.sh && ./setup.sh && ./main.py
-   ```
-   python json_converter.py
-   ```
+
+### Quick Start Options
+
+#### Option 1: Automated Setup (Recommended)
+```bash
+chmod +x setup.sh
+./setup.sh
+./main.py
+```
+
+#### Option 2: Manual Launch
+```bash
+# Method 1: Use the main launcher
+python main.py
+
+# Method 2: Run directly from src
+python src/json_converter.py
+
+# Method 3: Virtual environment
+./venv/bin/python main.py
+```
+
+#### Option 3: Command Line Only
+```bash
+python utils/json_to_excel.py examples/sample_data/employee_records.json output.xlsx
+```
 
 ## 💻 Usage Guide
 
@@ -75,12 +128,17 @@ pip install -r requirements.txt
 
 1. **Launch Application**
    ```bash
-   python json_converter.py
+   # Using main launcher
+   python main.py
+   
+   # Or directly from source
+   python src/json_converter.py
    ```
 
 2. **Import JSON File**
    - Click "Choose JSON File" button
    - Select your JSON file from the file dialog
+   - Try sample files from `examples/sample_data/` directory
    - The original JSON will display in the "Original JSON" tab
 
 3. **Configure Conversion Options**
@@ -107,19 +165,19 @@ pip install -r requirements.txt
 For batch processing or automation, use the command-line utility:
 
 ```bash
-python json_to_excel.py input.json output.xlsx [separator] [max_level]
+python utils/json_to_excel.py input.json output.xlsx [separator] [max_level]
 ```
 
 **Examples:**
 ```bash
 # Basic export
-python json_to_excel.py data.json output.xlsx
+python utils/json_to_excel.py examples/sample_data/employee_records.json output.xlsx
 
 # Custom separator and max levels
-python json_to_excel.py data.json output.xlsx "." 3
+python utils/json_to_excel.py examples/sample_data/nested_object.json output.xlsx "." 3
 
 # Using different separators
-python json_to_excel.py data.json output.xlsx "-" 
+python utils/json_to_excel.py examples/sample_data/complex_nested_array.json output.xlsx "-"
 ```
 
 **Command-line Features:**
@@ -128,48 +186,38 @@ python json_to_excel.py data.json output.xlsx "-"
 - Progress feedback and error reporting
 - Batch processing support
 
-### Example JSON Structures
+### Batch Processing
 
-The converter handles various JSON formats:
+The application now supports batch processing for multiple JSON files:
 
-**Simple Nested Object:**
-```json
-{
-  "user": {
-    "name": "John Doe",
-    "contact": {
-      "email": "john@example.com",
-      "phone": "123-456-7890"
-    }
-  }
-}
+#### GUI Batch Processing
+1. Launch the application: `python main.py`
+2. Click "📊 Batch Convert to Excel" button
+3. Select multiple JSON files
+4. Choose output directory
+5. Monitor progress and view results
+
+#### Command-Line Batch Processing
+```bash
+# Process all JSON files in a directory
+for file in examples/sample_data/*.json; do
+    python utils/json_to_excel.py "$file" "output/$(basename "$file" .json).xlsx"
+done
 ```
 
-**Array of Objects:**
-```json
-[
-  {
-    "id": 1,
-    "product": {
-      "name": "Laptop",
-      "specs": {
-        "cpu": "Intel i7",
-        "ram": "16GB"
-      }
-    }
-  },
-  {
-    "id": 2,
-    "product": {
-      "name": "Mouse",
-      "specs": {
-        "type": "Wireless",
-        "dpi": "1600"
-      }
-    }
-  }
-]
+#### Demo Script
+Run the demo to convert all sample files:
+```bash
+python examples/demo_excel.py
 ```
+
+## 💡 Tips for Effective Use
+
+- **Explore Sample Data**: Use the provided sample JSON files to familiarize yourself with the converter's capabilities.
+- **Start with Defaults**: Begin with default settings for separator and nesting levels; adjust as needed based on your data.
+- **Check Output**: Always review the exported CSV/Excel files to ensure data integrity and correct formatting.
+- **Use Batch Processing**: For large projects, utilize batch processing to convert multiple files efficiently.
+- **Monitor Performance**: Keep an eye on the status bar for real-time feedback on conversion progress and any potential issues.
 
 ## 🛠️ Technical Details
 
@@ -190,16 +238,6 @@ The converter handles various JSON formats:
 - **Arrays**: Can be exploded into separate rows or kept as strings
 - **Data Types**: Automatically inferred and preserved where possible
 - **Missing Values**: Handled gracefully with user-configurable options
-
-## 📁 Project Structure
-
-```
-json-to-tabular-converter/
-├── json_converter.py    # Main application file
-├── requirements.txt     # Python dependencies
-├── README.md           # Project documentation
-└── sample_data/        # Example JSON files (optional)
-```
 
 ## 🎨 Interface Features
 
